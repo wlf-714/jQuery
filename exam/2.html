@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>课程列表</title>
+    <style>
+        /* 简单的 CSS 样式，使页面更美观 */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+       .course-list {
+            list-style-type: none;
+            padding: 0;
+            width: 50%;
+            margin: 0 auto;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+       .course-item {
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+       .course-item:last-child {
+            border-bottom: none;
+        }
+       .course-item:hover {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>课程列表</h1>
+    <ul class="course-list">
+        <li class="course-item">
+            <h2>计算机科学导论</h2>
+            <p>课程描述：本课程将介绍计算机科学的基础知识，包括计算机系统、编程语言、数据结构和算法等。</p>
+        </li>
+        <li class="course-item">
+            <h2>网页设计基础</h2>
+            <p>课程描述：学习 HTML、CSS 和 JavaScript 的基础知识，以及如何创建美观和功能强大的网页。</p>
+        </li>
+        <li class="course-item">
+            <h2>数据库原理</h2>
+            <p>课程描述：了解数据库的基本概念、关系型数据库的设计和 SQL 语言。</p>
+        </li>
+        <li class="course-item">
+            <h2>软件工程</h2>
+            <p>课程描述：掌握软件开发的过程、方法和工具，以及如何进行软件项目管理。</p>
+        </li>
+    </ul>
+    <footer>
+        <li><a href="1.html"><i class="fas fa-home"></i> 返回首页</a></li>
+    </footer>
+</body>
+</html>

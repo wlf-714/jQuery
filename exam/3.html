@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程管理系统</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e1f5fe;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #0277bd;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #b3e5fc;
+            padding: 10px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #01579b;
+            font-weight: bold;
+        }
+
+        nav ul li a i {
+            margin-right: 5px;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+       .course {
+            background-color: white;
+            border: 1px solid #bbdefb;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+       .course:hover {
+            transform: translateY(-5px);
+        }
+
+       .course h2 {
+            margin: 0;
+            color: #0277bd;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 200px;
+            padding: 5px;
+            margin-right: 10px;
+            border: 1px solid #bbdefb;
+            border-radius: 3px;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: #0277bd;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #01579b;
+        }
+
+        footer {
+            background-color: #0277bd;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* 新增课表样式 */
+       .timetable {
+            display: none;
+            background-color: white;
+            border: 1px solid #bbdefb;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+       .timetable h3 {
+            margin-top: 0;
+            color: #0277bd;
+        }
+
+       .timetable table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+       .timetable th,
+       .timetable td {
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>课程管理系统</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#"><i class="fas fa-home"></i> 首页</a></li>
+            <li><a href="#"><i class="fas fa-list"></i> 课程列表</a></li>
+            <li><a href="#"><i class="fas fa-plus"></i> 添加课程</a></li>
+            <li><a href="#"><i class="fas fa-user"></i> 我的课表</a></li>
+            
+        </ul>
+    </nav>
+    <main>
+        <form id="addCourseForm">
+            <input type="text" id="courseName" placeholder="课程名称" required>
+            <input type="text" id="courseDescription" placeholder="课程描述" required>
+            <button type="submit"><i class="fas fa-plus"></i> 添加课程</button>
+        </form>
+        <div id="courseList">
+            <div class="course" data-course-id="1">
+                <h2>软件工程</h2>
+                <p>课程描述：这是一门非常有趣的课程，涵盖了许多重要的知识点。</p>
+                <button class="deleteCourseButton"><i class="fas fa-trash"></i> 删除课程</button>
+            </div>
+            <div class="course" data-course-id="2">
+                <h2>java</h2>
+                <p>课程描述：这门课程将帮助你掌握实用的技能。</p>
+                <button class="deleteCourseButton"><i class="fas fa-trash"></i> 删除课程</button>
+            </div>
+        </div>
+    </main>
+    <footer>
+        课程管理系统
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 为添加课程表单添加提交事件处理程序
+            document.getElementById('addCourseForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+                const courseName = document.getElementById('courseName').value;
+                const courseDescription = document.getElementById('courseDescription').value;
+                // 创建新的课程元素
+                const newCourse = document.createElement('div');
+                newCourse.className = 'course';
+                newCourse.dataset.courseId = Date.now();
+                newCourse.innerHTML = `
+                    <h2>${courseName}</h2>
+                    <p>课程描述：${courseDescription}</p>
+                    <button class="deleteCourseButton"><i class="fas fa-trash"></i> 删除课程</button>
+                `;
+                // 将新的课程元素添加到课程列表中
+                document.getElementById('courseList').appendChild(newCourse);
+                // 清空输入框
+                document.getElementById('courseName').value = '';
+                document.getElementById('courseDescription').value = '';
+            });
+
+            // 为删除课程按钮添加点击事件处理程序
+            document.getElementById('courseList').addEventListener('click', function (event) {
+                if (event.target.classList.contains('deleteCourseButton') || event.target.parentElement.classList.contains('deleteCourseButton')) {
+                    const courseElement = event.target.parentElement.classList.contains('deleteCourseButton')? event.target.parentElement.parentElement : event.target.parentElement;
+                    courseElement.remove();
+                }
+            });
+
+            // 为“我的课表”链接添加点击事件处理程序
+            document.querySelectorAll('nav ul li a')[3].addEventListener('click', function (e) {
+                e.preventDefault();
+                const timetable = document.getElementById('myTimetable');
+                timetable.style.display = 'block';
+            });
+        });
+    </script>
+     <footer>
+        <li><a href="1.html"><i class="fas fa-home"></i> 返回首页</a></li>
+    </footer>
+</body>
+
+</html>
